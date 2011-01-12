@@ -1,0 +1,2 @@
+class AudiogramsController < ApplicationController
+end

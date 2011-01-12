@@ -1,0 +1,23 @@
+<h1>Listing examiners</h1>
+
+<table>
+  <tr>
+    <th>Worker</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @examiners.each do |examiner| %>
+  <tr>
+    <td><%= examiner.worker_id %></td>
+    <td><%= link_to 'Show', examiner %></td>
+    <td><%= link_to 'Edit', edit_examiner_path(examiner) %></td>
+    <td><%= link_to 'Destroy', examiner, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Examiner', new_examiner_path %>

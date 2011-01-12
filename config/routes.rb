@@ -1,7 +1,11 @@
 Audioserver::Application.routes.draw do
   resources :examiners
 
-  resources :patients
+  resources :patients do
+   resources :audiograms
+  end
+
+  get 'direct_create/:data' => 'patients#direct_create'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -80,4 +80,56 @@ class PatientsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # GET /direct_create/:hp_id
+  # create audiogram directly from http request
+  # http://host.ip/direct_create/hp_id?data="..."&examdate="..."&comment="..."
+  def direct_create
+    hp_id = valid_id?(params[:hp_id])
+    if not @patient = Patient.find_by_hp_id(hp_id)
+      @patient = Patient.new
+      @patient.hp_id = hp_id
+    end
+
+    audiogram_created = false
+    if @patient.save
+      @audiogram = @patient.audiograms.create
+      @audiogram.examdate = Time.local *params[:examdate].split(/:|-/)
+      @audiogram.comment = params[:comment]
+      @audiogram.manual_input = false
+      set_data(params[:data])
+      build_graph
+      audiogram_created = @audiogram.save
+    end
+
+    if audiogram_created
+      render :nothing => true, :status => 201
+    else
+      render :nothing => true, :status => 501
+    end
+
+    #respond_to do |format|
+    #  format.html { redirect_to(patients_url) }
+    #  format.xml  { head :ok }
+    #end
+  end
+
+  # GET /by_hp_id/:hp_id
+  # get index by hp_id
+  def by_hp_id
+    hp_id = valid_id?(params[:hp_id])
+    patient_exists = false
+    if @patient = Patient.find_by_hp_id(hp_id)
+      patient_exists = true
+    else
+      @patient = Patient.new
+      @patient.hp_id = hp_id
+      patient_exists = @patient.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to(@patient) }
+      format.xml  { head :ok }
+    end
+  end
 end

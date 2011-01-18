@@ -1,0 +1,15 @@
+<h1>Listing audiograms</h1>
+
+ID: <%= @patient.hp_id %>
+
+<table>
+  <tr>
+    <th>examdate</th>
+  </tr>
+
+<% @audiograms.each do |audiogram| %>
+  <tr>
+    <td><%= audiogram.examdate %></td>
+  </tr>
+<% end %>
+</table>

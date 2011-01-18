@@ -376,7 +376,7 @@ class PatientsController < ApplicationController
                                                                               # convert to 160x160px thumbnail
   end
 
-  def build_overdrawn_graph(audiogram, *pre_audiograms)  # *pre_audiogram ??????�?��????????
+  def build_overdrawn_graph(audiogram, *pre_audiograms)  # recieve undefined(不定長) data with *pre_audiogram
     a = Audio.new(convert_to_audiodata(audiogram))
     p_as = Array.new     # (p)re(_a)udiogram(s) ???? p_as
     pre_audiograms.each do |pre_audiogram|
@@ -393,7 +393,7 @@ class PatientsController < ApplicationController
     system("convert #{tmp_file} #{tmp_file_png}")   # convert with ImageMagick
   end
 
-  def select_recent_audiograms(params) # ????????��???�???��?
+  def select_recent_audiograms(params) # from newer data to older
     audiograms = Array.new
     if params[:selected]
       for id in params[:selected]

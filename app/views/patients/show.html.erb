@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Hp:</b>
+  <b>Hp ID:</b>
   <%= @patient.hp_id %>
 </p>
 
+<%= link_to 'Audiogram', patient_audiogram_path(@patient) %> <br>
 
-<%= link_to 'Edit', edit_patient_path(@patient) %> |
-<%= link_to 'Back', patients_path %>
+<%= link_to 'Patient Index', patients_path %>

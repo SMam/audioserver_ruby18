@@ -1,12 +1,143 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Hp ID:</b>
-  <%= @patient.hp_id %>
+<table class="graphtable">
+  <tr><td colspan="2" class="graphtable">
+  <table>
+    <tr><th>ID: </th><td colspan="3"><%=h reg_id(@patient.hp_id) %></td></tr>
+    <tr><th>Exam: </th><td><%=h @audiogram.examdate %></td>
+    <th>Modify: </th><td><%=h @audiogram.updated_at %></td></tr>
+  </table></td></tr>
+  <tr>
+  <td rowspan="5" class="graphtable"><%= image_tag(@audiogram.image_location) %></td>
+  <th>mean audiogram</th>
+  </tr>
+  <tr>
+  <th>mean3</th>
+  </tr>
+  <tr>
+  <td>
+    <table>
+    <tr><th>Rt:</th><td><%=h mean("3", @audiogram)[:R] %></td></tr>
+    <tr><th>Lt:</th><td><%=h mean("3", @audiogram)[:L] %></td></tr>
+    </table>
+  </td>
+  </tr>
+  <tr>
+  <th>mean4</th>
+  </tr>
+  <tr>
+  <td>
+    <table>
+    <tr><th>Rt:</th><td><%=h mean("4", @audiogram)[:R] %>(<%=h mean("4R", @audiogram)[:R] %>)</td></tr>
+    <tr><th>Lt:</th><td><%=h mean("4", @audiogram)[:L] %>(<%=h mean("4R", @audiogram)[:L] %>)</td></tr>
+    </table>
+  </td>
+  </tr>
+  <tr>
+  <th>Masking condition</th>
+  <th>mean6</th>
+  </tr>
+  <tr>
+  <td>
+
+<table>
+<tr> <th>mode</th> <th>side</th> <th>125Hz</th> <th>250Hz</th> <th>500Hz</th> <th>1kHz</th> <th>2kHz</th> <th>4kHz</th> <th>8kHz</th></tr>
+<tr><td>Air</td> <td>Rt</td>
+    <td><%=h @audiogram.mask_ac_rt_125 %></td>
+    <td><%=h @audiogram.mask_ac_rt_250 %></td>
+    <td><%=h @audiogram.mask_ac_rt_500 %></td>
+    <td><%=h @audiogram.mask_ac_rt_1k %></td>
+    <td><%=h @audiogram.mask_ac_rt_2k %></td>
+    <td><%=h @audiogram.mask_ac_rt_4k %></td>
+    <td><%=h @audiogram.mask_ac_rt_8k %></td></tr>
+<tr><td></td> <td>Lt</td>
+    <td><%=h @audiogram.mask_ac_lt_125 %></td>
+    <td><%=h @audiogram.mask_ac_lt_250 %></td>
+    <td><%=h @audiogram.mask_ac_lt_500 %></td>
+    <td><%=h @audiogram.mask_ac_lt_1k %></td>
+    <td><%=h @audiogram.mask_ac_lt_2k %></td>
+    <td><%=h @audiogram.mask_ac_lt_4k %></td>
+    <td><%=h @audiogram.mask_ac_lt_8k %></td>
+<tr><td>Bone</td> <td>Rt</td>
+    <td></td>
+    <td><%=h @audiogram.mask_bc_rt_250 %></td>
+    <td><%=h @audiogram.mask_bc_rt_500 %></td>
+    <td><%=h @audiogram.mask_bc_rt_1k %></td>
+    <td><%=h @audiogram.mask_bc_rt_2k %></td>
+    <td><%=h @audiogram.mask_bc_rt_4k %></td>
+    <td><%=h @audiogram.mask_bc_rt_8k %></td>
+<tr><td></td> <td>Lt</td>
+    <td></td>
+    <td><%=h @audiogram.mask_bc_lt_250 %></td>
+    <td><%=h @audiogram.mask_bc_lt_500 %></td>
+    <td><%=h @audiogram.mask_bc_lt_1k %></td>
+    <td><%=h @audiogram.mask_bc_lt_2k %></td>
+    <td><%=h @audiogram.mask_bc_lt_4k %></td>
+    <td><%=h @audiogram.mask_bc_lt_8k %></td></tr>
+</table>
+
+
+  </td>
+  <td>
+    <table>
+    <tr><th>Rt</th><td><%=h mean("6", @audiogram)[:R] %></td></tr>
+    <tr><th>Lt</th><td><%=h mean("6", @audiogram)[:L] %></td></tr>
+    </table>
+  </td>
+  </tr>
+
+</table>
 </p>
 
-<%= @audiogram.id %><br>
+<p>
+<h2>Audiogram</h2>
+<table>
+<tr> <th>mode</th> <th>side</th> <th>125Hz</th> <th>250Hz</th> <th>500Hz</th> <th>1kHz</th> <th>2kHz</th> <th>4kHz</th> <th>8kHz</th></tr>
+<tr><td>Air</td> <td>Rt</td>
+    <td><%=h @audiogram.ac_rt_125 %></td>
+    <td><%=h @audiogram.ac_rt_250 %></td>
+    <td><%=h @audiogram.ac_rt_500 %></td>
+    <td><%=h @audiogram.ac_rt_1k %></td>
+    <td><%=h @audiogram.ac_rt_2k %></td>
+    <td><%=h @audiogram.ac_rt_4k %></td>
+    <td><%=h @audiogram.ac_rt_8k %></td></tr>
+<tr><td></td><td>Lt</td>
+    <td><%=h @audiogram.ac_lt_125 %></td>
+    <td><%=h @audiogram.ac_lt_250 %></td>
+    <td><%=h @audiogram.ac_lt_500 %></td>
+    <td><%=h @audiogram.ac_lt_1k %></td>
+    <td><%=h @audiogram.ac_lt_2k %></td>
+    <td><%=h @audiogram.ac_lt_4k %></td>
+    <td><%=h @audiogram.ac_lt_8k %></td></tr>
+<tr><td>Bone</td> <td>Rt</td>
+    <td></td>
+    <td><%=h @audiogram.bc_rt_250 %></td>
+    <td><%=h @audiogram.bc_rt_500 %></td>
+    <td><%=h @audiogram.bc_rt_1k %></td>
+    <td><%=h @audiogram.bc_rt_2k %></td>
+    <td><%=h @audiogram.bc_rt_4k %></td>
+    <td><%=h @audiogram.bc_rt_8k %></td></tr>
+<tr><td></td><td>Lt</td>
+    <td></td>
+    <td><%=h @audiogram.bc_lt_250 %></td>
+    <td><%=h @audiogram.bc_lt_500 %></td>
+    <td><%=h @audiogram.bc_lt_1k %></td>
+    <td><%=h @audiogram.bc_lt_2k %></td>
+    <td><%=h @audiogram.bc_lt_4k %></td>
+    <td><%=h @audiogram.bc_lt_8k %></td></tr>
+</table>
 
-<%= link_to 'Audiogram', patient_audiogram_path(@patient) %> <br>
+<p>
+  <b>Image location:</b>
+  <%=h @audiogram.image_location %>
+</p>
 
-<%= link_to 'Patient Index', patients_path %>
+<p>
+  <b>Manual input:</b>
+  <%=h @audiogram.manual_input %>
+</p>
+
+<%= link_to 'Edit', edit_patient_audiogram_path(@audiogram) %> |
+<%= link_to 'Back', patient_audiograms_path %>
+

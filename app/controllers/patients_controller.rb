@@ -1,4 +1,5 @@
 class PatientsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => [:direct_create]
   require 'lib/audio_class.rb'
   require 'lib/id_validation.rb'
 

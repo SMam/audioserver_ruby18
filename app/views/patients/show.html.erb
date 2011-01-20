@@ -5,6 +5,7 @@
   <%= @patient.hp_id %>
 </p>
 
-<%= link_to 'Audiogram', patient_audiogram_path(@patient) %> <br>
+<%#= link_to 'Audiogram', patient_audiogram_path(@patient) %> <br>
+<%= link_to 'Audiogram', patient_audiograms_path(@patient) %> <br>
 
 <%= link_to 'Patient Index', patients_path %>

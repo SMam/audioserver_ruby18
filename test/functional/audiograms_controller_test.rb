@@ -5,6 +5,7 @@ class AudiogramsControllerTest < ActionController::TestCase
     @patient = patients(:one)
     @audiogram = audiograms(:one)
     @audiogram.patient_id = @patient.id
+    @audiogram.save
   end
 
   test "should get index" do
@@ -28,6 +29,7 @@ class AudiogramsControllerTest < ActionController::TestCase
 
   test "should show audiogram" do
     get :show, :id => @audiogram.to_param, :patient_id => @patient.id
+    #get :show, :id => @audiogram.id, :patient_id => @patient.id
     assert_response :success
   end
 

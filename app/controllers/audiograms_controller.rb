@@ -15,7 +15,8 @@ class AudiogramsController < ApplicationController
   # GET /patients/1.xml
   def show
     @patient = Patient.find(params[:patient_id])
-    @audiogram = @patient.audiogram.find(params[:id])
+    @audiogram = @patient.audiograms.find_by_id(params[:id])
+p @audiogram
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,7 +27,7 @@ class AudiogramsController < ApplicationController
   # GET /patients/:patient_id/audiograms/1/edit
   def edit
     @patient = Patient.find(params[:patient_id])
-    @audiogram = @patient.audiogram.find(params[:id])
+    @audiogram = @patient.audiograms.find_by_id(params[:id])
   end
 
   # POST /patients/:patient_id/audiograms
@@ -50,7 +51,7 @@ class AudiogramsController < ApplicationController
   # PUT /patients/1.xml
   def update
     @patient = Patient.find(params[:patient_id])
-    @audiogram = @patient.audiograms.find(params[:id])
+    @audiogram = @patient.audiograms.find_by_id(params[:id])
 
     respond_to do |format|
       if @audiogram.update_attributes(params[:audiogram])
@@ -67,7 +68,7 @@ class AudiogramsController < ApplicationController
   # DELETE /patients/1.xml
   def destroy
     @patient = Patient.find(params[:patient_id])
-    @audiogram = @patient.audiograms.find(params[:id])
+    @audiogram = @patient.audiograms.find_by_id(params[:id])
     @audiogram.destroy
 
     respond_to do |format|

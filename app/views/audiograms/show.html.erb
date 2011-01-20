@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hp ID:</b>
+  <%= @patient.hp_id %>
+</p>
+
+<%= @audiogram.id %><br>
+
+<%= link_to 'Audiogram', patient_audiogram_path(@patient) %> <br>
+
+<%= link_to 'Patient Index', patients_path %>

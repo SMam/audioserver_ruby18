@@ -5,7 +5,8 @@
 
 require 'AA79S.rb'
 
-Image_parts_location = "./lib/images/" # !!! 必要に応じて変更を !!!
+RAILS_ROOT = ".." if not defined? RAILS_ROOT
+Image_parts_location = RAILS_ROOT+"/lib/images/" # !!! 必要に応じて変更を !!!
 # railsの場合，directoryの相対表示の起点は rails/audiserv であるようだ
 Overdraw_times = 2  # 重ね書きの回数．まずは2回，つまり1回前の検査までとする
 
@@ -13,10 +14,10 @@ class Bitmap
  
   RED = [255,0,0]
   BLUE = [0,0,255]
-  RED_PRE0 = [127,63,0]
-  RED_PRE1 = [127,63,0]
-  BLUE_PRE0 = [0,127,127]
-  BLUE_PRE1 = [0,127,127]
+  RED_PRE0 = [255,30,30]
+  RED_PRE1 = [255,90,90]
+  BLUE_PRE0 = [30,30,255]
+  BLUE_PRE1 = [90,90,255]
   BLACK = [0,0,0]
   BLACK_PRE0 = [30,30,30]
   BLACK_PRE1 = [90,90,90]

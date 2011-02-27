@@ -1,0 +1,8 @@
+table,td,th {
+  border: 1px #ccc solid;
+  border-collapse: collapse;
+}
+
+tr.colored {
+  background-color: #dfd;
+}

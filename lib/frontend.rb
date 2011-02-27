@@ -8,8 +8,8 @@ require 'com_RS232C_AA79S'
 require 'audio_class'
 
 #SERVER_IP = '172.16.41.20'
-SERVER_IP = '192.168.1.6'
-#SERVER_IP = '127.0.0.1'
+#SERVER_IP = '192.168.1.6'
+SERVER_IP = '127.0.0.1'
 SERVER_PORT = 3000
 
 class AudioExam
@@ -201,7 +201,7 @@ button_transmit.signal_connect("clicked") do
       comment += "MASK_"  if comment_masking.active?
       comment += "PATCH_" if comment_after_patch.active?
       comment += "MED_"   if comment_after_med.active?
-      comment += "OTHER:#{comment_other_entry.text}_" if comment_other_check.active?
+      comment += "OTHER:#{comment_other_entry.text}_" if (comment_other_check.active? or /\S+/ =~ comment_other_entry.text)
       exam.data[:comment] = comment
       exam.transmit
 #      exam.state = 3

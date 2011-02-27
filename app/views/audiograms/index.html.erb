@@ -1,8 +1,7 @@
-<h1>Listing audiograms</h1>
 <h1>Audiogram List (ID: <%= reg_id(@patient.hp_id) %>)</h1>
 
 <table>
-  <tr>
+  <tr class="colored">
     <th></th>
     <th>Examdate</th>
     <!-- th>Image location</th -->
@@ -16,10 +15,10 @@
 <%# form_tag :action => 'select' do %>
 
 <% @audiograms.each do |audiogram| %>
-  <tr class="<%= cycle("even", "odd") %>">
+  <tr class="<%= cycle("", "colored") %>">
     <!-- cycle は周期的に繰り返す文字列を出力する -->
     <td><%#= check_box_tag "selected[]", audiogram.id %><br><a href="#search">▼</a></td>
-    <td><%=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%=h audiogram.examdate.strftime("%X/%a") %></td>
+    <td><%=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%# =h audiogram.examdate.strftime("%X/%a") %> <%=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%=h audiogram.examdate.strftime("%X") %></td>
     <!-- td><%#=h audiogram.image_location %></td -->
     <td><%= link_to(image_tag(audiogram.image_location.sub("graphs", "thumbnails")),\
       :action => "show", :id => audiogram.id )%></td>

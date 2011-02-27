@@ -7,6 +7,11 @@ gem 'rails', '3.0.3'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
+# Use mongrel as the web server
+gem 'mongrel'
+gem 'cgi_multipart_eof_fix'
+gem 'fastthread'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

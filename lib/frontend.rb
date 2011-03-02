@@ -9,8 +9,9 @@ require 'audio_class'
 
 #SERVER_IP = '172.16.41.20'
 #SERVER_IP = '192.168.1.6'
-SERVER_IP = '127.0.0.1'
+#SERVER_IP = '127.0.0.1'
 SERVER_PORT = 3000
+TEST_MODE = true
 
 class AudioExam
   def initialize
@@ -48,7 +49,7 @@ class Markup_msg
     @scan = make_markup("IDをバーコードまたはキーボードから入力してください\nscan Barcode or Input ID.", "black")
     @recieve = make_markup("データ受信中\nRecieving data now...", "black")
     @transmit = make_markup("送信ボタンを押してください\nTransmit, please", "black")
-    @timeout = make_markup("時間切れです\nTimeout!", "red")
+    @timeout = make_markup("時間切れです 中止してやり直してください\nTimeout! Abort and retry please", "red")
     @invalid_id = make_markup("IDが間違っています。再入力してください\nInvalid ID. Scan or Input again", "red")
     @no_data = make_markup("有効なデータがありません。\nNo data", "red")
   end
@@ -147,11 +148,19 @@ button_id_entry.signal_connect("clicked") do
       image.pixbuf = pixbuf_msg.recieve
       msg_label.set_markup(markup_msg.recieve)
       exam.state = 1
-      exam.set_data(id_entry.text, Time.now.strftime("%Y:%m:%d-%H:%M:%S"), recieve_data, '')
-      # Time.now.strftime("%Y:%m:%d-%H:%M:%S") は 2008:09:27-12:50:00 といった形式
-      image.pixbuf = Gdk::Pixbuf.new("./result.png")
-      msg_label.set_markup(markup_msg.transmit)
-      exam.state = 2
+      sent_data = recieve_data
+      if sent_data == "Timeout"
+        image.pixbuf = pixbuf_msg.timeout
+        msg_label.set_markup(markup_msg.timeout)
+      else
+        exam.set_data(id_entry.text, Time.now.strftime("%Y:%m:%d-%H:%M:%S"),\
+	  sent_data, '')
+        # Time.now.strftime("%Y:%m:%d-%H:%M:%S") は 2008:09:27-12:50:00 形式
+        system("mpg123 -q "+RAILS_ROOT+"/public/se.mp3")
+        image.pixbuf = Gdk::Pixbuf.new("./result.png")
+        msg_label.set_markup(markup_msg.transmit)
+        exam.state = 2
+      end
     else
       puts "invalid"
       msg_label.set_markup(markup_msg.invalid_id)
@@ -176,8 +185,8 @@ end
 =end
 
 button_abort.signal_connect("clicked") do
-  case exam.state
-  when 2 #3
+#  case exam.state
+#  when 2 #3
     id_entry.text = ""
     image.pixbuf = pixbuf_msg.scan
     msg_label.set_markup(markup_msg.scan)
@@ -189,7 +198,7 @@ button_abort.signal_connect("clicked") do
     comment_other_entry.text = ""
     exam = AudioExam.new
     window.set_focus(id_entry)
-  end
+#  end
 end
 
 button_transmit.signal_connect("clicked") do
@@ -229,11 +238,8 @@ end
 
 # ID enterance trigger : write data recieving procedure here
 def recieve_data
-
-  actual_code = false # or true
-
   # actual code start
-  if actual_code
+  if not TEST_MODE
     raw_data = get_data_from_audiometer
   else
   # dummy code start
@@ -244,14 +250,17 @@ def recieve_data
     end
   end
 
-  r = Audiodata.new("raw", raw_data)
-  a = Audio.new(r)
-  
-  a.draw
-  a.output("./result.ppm")
-  system("convert ./result.ppm ./result.png")   # convert with ImageMagick
+  if raw_data == "Timeout"
+    return "Timeout"
+  else
+    r = Audiodata.new("raw", raw_data)
+    a = Audio.new(r)
+    a.draw
+    a.output("./result.ppm")
+    system("convert ./result.ppm ./result.png")   # convert with ImageMagick
     
-  return raw_data
+    return raw_data
+  end
 end
 
 window.add(pack_box)

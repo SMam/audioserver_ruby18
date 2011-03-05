@@ -20,11 +20,11 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.xml
   def show
-    @patient = Patient.find(params[:id])
+#    @patient = Patient.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @patient }
+#      format.html # show.html.erb
+      format.html {redirect_to "/patients/#{params[:id]}/audiograms"}
     end
   end
 

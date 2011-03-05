@@ -1,13 +1,13 @@
-<h1>Audiogram List (ID: <%= reg_id(@patient.hp_id) %>)</h1>
+<h1>聴力検査結果 (ID: <%= reg_id(@patient.hp_id) %>)</h1>
 
 <table>
   <tr class="colored">
     <th></th>
-    <th>Examdate</th>
+    <th>検査日 Examdate</th>
     <!-- th>Image location</th -->
-    <th>Thumbnail</th>
-    <th>mean4</th>
-    <th>Comment</th>
+    <th>検査図 Thumbnail</th>
+    <th>4分法平均 mean4</th>
+    <th>コメント Comment</th>
     <th></th>
     <!-- th>Manual input</th -->
   </tr>
@@ -45,7 +45,6 @@
       :id => @selected_id %>
 
 <%# form_tag :action => 'search' do %>
-  search id:
   <%#= text_field "condition", "key" %>
   <%#= submit_tag 'Search' %>
 <%# end %>

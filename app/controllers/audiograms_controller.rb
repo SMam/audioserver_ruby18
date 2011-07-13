@@ -3,7 +3,8 @@ class AudiogramsController < ApplicationController
   # GET /patients.xml
   def index
     @patient = Patient.find(params[:patient_id])
-    @audiograms = @patient.audiograms.all
+    #@audiograms = @patient.audiograms.all
+    @audiograms = @patient.audiograms.order('examdate DESC').all
 
     respond_to do |format|
       format.html # index.html.erb

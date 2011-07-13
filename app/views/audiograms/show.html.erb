@@ -3,9 +3,6 @@
 <h1>ID: <%=h reg_id(@patient.hp_id) %>
 <%= link_to '[結果一覧へ]', patient_audiograms_path(@patient) %> </h1>
 検査日: <%=h @audiogram.examdate %> / 修正日: <%=h @audiogram.updated_at %>
-<form name="Form1" style="margin:1ex">
-    <input type="button" name="PrintButton" value="印刷" onclick="printout()"/>　
-</form>
 
 <table>
 <tr><td colspan="9"><%= image_tag(@audiogram.image_location) %></td>
@@ -16,11 +13,14 @@
       <tr><th>Rt:</th><td><%=h mean("3", @audiogram)[:R] %></td></tr>
       <tr><th>Lt:</th><td><%=h mean("3", @audiogram)[:L] %></td></tr>
       <tr><th colspan="2"></th></tr>
-      <tr><th colspan="2">4分法(身障用)</th></tr>
-      <tr><th>Rt:</th><td><%=h mean("4", @audiogram)[:R] %>
-                         (<%=h mean("4R", @audiogram)[:R] %>)</td></tr>
-      <tr><th>Lt:</th><td><%=h mean("4", @audiogram)[:L] %>
-                         (<%=h mean("4R", @audiogram)[:L] %>)</td></tr>
+      <% mean4 = mean("4", @audiogram) %>
+      <% mean4R = mean("4R", @audiogram) %>
+      <% mean4_match = (mean4 == mean4R) %>
+      <tr><th colspan="2">4分法<%=h "<br>(cut offなし)" if not mean4_match %></th></tr>
+      <tr><th>Rt:</th><td><%=h mean4[:R] %>
+                          <%=h "(#{mean4R[:R]})" if not mean4_match %>)</td></tr>
+      <tr><th>Lt:</th><td><%=h mean4[:L] %>
+                          <%=h "(#{mean4R[:L]})" if not mean4_match %>)</td></tr>
       <tr><th colspan="2"></th></tr>
       <tr><th colspan ="2">6分法</th></tr>
       <tr><th>Rt:</th><td><%=h mean("6", @audiogram)[:R] %></td></tr>
@@ -68,4 +68,7 @@
 </table>
 
 <p>
+<form name="Form1" style="margin:1ex">
+    <input type="button" name="PrintButton" value="印刷" onclick="printout()"/>　
+</form>
 <%= link_to '検査一覧へ to Index', patient_audiograms_path(@patient) %> <br>

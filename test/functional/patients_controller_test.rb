@@ -26,7 +26,8 @@ class PatientsControllerTest < ActionController::TestCase
 
   test "should show patient" do
     get :show, :id => @patient.to_param
-    assert_response :success
+    #assert_response :success
+    assert_response 302 # しばらくaudiogramへのredirectとする
   end
 
   #test "should get edit" do

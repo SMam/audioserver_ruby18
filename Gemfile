@@ -12,6 +12,9 @@ gem 'mongrel'
 gem 'cgi_multipart_eof_fix'
 gem 'fastthread'
 
+# Use serialport for RS-232C communication
+gem 'serialport'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

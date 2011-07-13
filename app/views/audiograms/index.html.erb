@@ -18,7 +18,7 @@
   <tr class="<%= cycle("", "colored") %>">
     <!-- cycle は周期的に繰り返す文字列を出力する -->
     <td><%#= check_box_tag "selected[]", audiogram.id %><br><a href="#search">▼</a></td>
-    <td><%=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%# =h audiogram.examdate.strftime("%X/%a") %> <%=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%=h audiogram.examdate.strftime("%X") %></td>
+    <td><%#=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%# =h audiogram.examdate.strftime("%X/%a") %> <%=h audiogram.examdate.strftime("%Y/%m/%d") %><br><%=h audiogram.examdate.strftime("%X") %></td>
     <!-- td><%#=h audiogram.image_location %></td -->
     <td><%= link_to(image_tag(audiogram.image_location.sub("graphs", "thumbnails")),\
       :action => "show", :id => audiogram.id )%></td>
